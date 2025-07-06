@@ -1,38 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Radhey Shanti Foundation</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radhey Shanti Foundation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Sage green background */
+            background-color: #A9B29B; /* A shade of sage green */
+            /* Floral background image */
+            background-image: url('https://content-fetcher.web.app/uploaded:Gemini_Generated_Image_wzvnyswzvnyswzvn.jpg-2b5e7119-84e0-49da-a4fd-1222f660845f');
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed; /* Keep background fixed when scrolling */
+            display: flex;
+            flex-direction: column; /* Arrange content vertically */
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            margin: 0;
+            padding: 20px; /* Add some padding around the content */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+            color: #333; /* Default text color for better contrast */
+        }
+        /* Hide pages by default, JavaScript will show the active one */
+        .page-content {
+            display: none;
+        }
+        /* Style for active navigation button */
+        .nav-button.active {
+            background-color: #6B7B5E; /* Deeper sage green for active state */
+            box-shadow: 0 4px 10px rgba(107, 123, 94, 0.4); /* Stronger shadow */
+        }
+        /* Adjust text color for better readability on content cards */
+        .page-content h1, .page-content p, .page-content li {
+            color: #333;
+        }
+        /* Ensure the main content container has a solid background to stand out */
+        .main-content-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for content cards */
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <div class="container">
-      <h1>Radhey Shanti Foundation</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="support.html">Support Us</a>
-      </nav>
+<body class="antialiased">
+
+    <!-- Navigation Bar -->
+    <nav class="w-full max-w-4xl bg-white rounded-xl shadow-lg p-4 mb-8 flex flex-wrap justify-center items-center gap-4 main-content-container">
+        <!-- Logo -->
+        <img
+            src="https://content-fetcher.web.app/uploaded:WhatsApp_Image_2025-06-30_at_20.11.15_d008c3b5-removebg-preview.png-9b9b5123-1106-4582-b906-68e02bab56ac"
+            alt="Radhey Shanti Foundation Logo"
+            class="h-16 w-auto mr-4 rounded-lg"
+            onerror="this.onerror=null;this.src='https://placehold.co/100x60/ffffff/000000?text=Logo';"
+        >
+        <button id="nav-about" class="nav-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75" onclick="showPage('about')">
+            About Us
+        </button>
+        <button id="nav-goal" class="nav-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75" onclick="showPage('goal')">
+            Our Goal
+        </button>
+        <button id="nav-contact" class="nav-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75" onclick="showPage('contact')">
+            Contact Us
+        </button>
+        <button id="nav-support" class="nav-button bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75" onclick="showPage('support')">
+            Support Us
+        </button>
+    </nav>
+
+    <!-- Main content area for pages -->
+    <div class="max-w-4xl w-full rounded-xl shadow-lg overflow-hidden md:flex main-content-container">
+
+        <!-- About Us Page Content -->
+        <div id="about-page" class="page-content p-8 md:p-12 flex flex-col justify-center md:w-1/2">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 rounded-lg">
+                About Radhey-Shanti Foundation
+            </h1>
+            <p class="text-lg text-gray-700 mb-4 rounded-lg">
+                Radhey-Shanti Foundation is a humanitarian non-profit initiative committed to transforming the lives of elderly individuals residing in old age homes by fostering self-sufficiency, dignity, and a renewed sense of purpose.
+            </p>
+            <p class="text-lg text-gray-700 mb-4 rounded-lg">
+                Anchored in the timeless philosophy of “Vasudhaiva Kutumbakam”—the world is one family—our work transcends mere caregiving. We strive to cultivate environments where the elderly are not only cared for but are meaningfully engaged, empowered, and celebrated as vital members of society.
+            </p>
+            <p class="text-lg text-gray-700 mb-4 rounded-lg">
+                Through a holistic approach that integrates vocational training, psychological support, creative enrichment, and wellness interventions, we seek to dismantle the marginalization of aging populations and replace it with pathways of autonomy and fulfillment.
+            </p>
+            <p class="text-lg text-gray-700 rounded-lg">
+                At Radhey-Shanti Foundation, we envision a society where aging is not equated with decline, but embraced as a stage of wisdom, contribution, and human flourishing.
+            </p>
+            <p class="text-lg text-gray-700 rounded-lg">
+                We are not just building shelters—we are fostering resilience, restoring dignity, and reimagining aging with empathy and action.
+            </p>
+            <div class="md:w-full flex items-center justify-center p-4">
+                <img
+                    src="https://placehold.co/600x400/e0e7ff/4338ca?text=Our+Community"
+                    alt="Illustration of community"
+                    class="rounded-lg shadow-md w-full h-auto object-cover"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e7ff/4338ca?text=Image+Not+Found';"
+                >
+            </div>
+        </div>
+
+        <!-- Our Goal Page Content -->
+        <div id="goal-page" class="page-content p-8 md:p-12 flex flex-col justify-center md:w-1/2">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 rounded-lg">
+                Our Goal
+            </h1>
+            <p class="text-lg text-gray-700 mb-6 rounded-lg">
+                At Radhey-Shanti Foundation, our work is rooted in compassion, dignity, and action. Here’s how we are making a difference in the lives of the elderly:
+            </p>
+            <ul class="text-lg text-gray-700 mb-8 list-none p-0 rounded-lg">
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🧵 1. Skill-Based Empowerment:</strong> We conduct vocational training and workshops to help elders rediscover purpose and gain self-sufficiency through meaningful, hands-on activities.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🧠 2. Emotional & Psychological Support:</strong> We create safe, nurturing environments that prioritize emotional well-being, reduce feelings of abandonment, and restore self-worth.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🎨 3. Creative Engagement for Cognitive Health:</strong> Through art, music, storytelling, and crafts, we stimulate mental activity and bring joy and connection to daily life.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🏡 4. Partnering with Old-Age Homes:</strong> We collaborate with elder care facilities to bring structured programs, consistent support, and personal attention to their residents.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">💪 5. Promoting Independent Living:</strong> By encouraging small daily acts of independence, we help elders reduce dependence on caregivers and reclaim autonomy.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🤝 6. Combating Loneliness:</strong> We facilitate community-building activities and intergenerational programs to reduce isolation and foster companionship.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">📜 7. Preserving Life Stories & Cultural Wisdom:</strong> We document and celebrate the lived experiences of the elderly—making them storytellers, not just survivors.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🧓 8. Advocating for Dignified Aging:</strong> We challenge ageist mindsets and promote a culture of respect, inclusion, and honor for our elders.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🗣 9. Driving Awareness & Policy Change:</strong> We raise our voice for systemic reforms and public dialogue around elder rights, care quality, and inclusive support systems.
+                </li>
+                <li class="mb-4">
+                    <strong class="text-indigo-700">🌏 10. Living ‘Vasudhaiva Kutumbakam’:</strong> We live by the belief that the world is one family—and no elder should be left behind. Every program we build reflects this sacred philosophy.
+                </li>
+            </ul>
+            <div class="md:w-full flex items-center justify-center p-4">
+                <img
+                    src="https://placehold.co/600x400/e0e7ff/4338ca?text=Achieve+Goals"
+                    alt="Illustration of achieving goals"
+                    class="rounded-lg shadow-md w-full h-auto object-cover"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e7ff/4338ca?text=Image+Not+Found';"
+                >
+            </div>
+        </div>
+
+        <!-- Contact Us Page Content -->
+        <div id="contact-page" class="page-content p-8 md:p-12 flex flex-col justify-center md:w-1/2">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 rounded-lg">
+                Get in Touch
+            </h1>
+            <p class="text-lg text-gray-700 mb-4 rounded-lg">
+                We'd love to hear from you! Whether you have questions, feedback, or want to collaborate, feel free to reach out.
+            </p>
+            <ul class="text-lg text-gray-700 mb-8 list-none p-0 rounded-lg">
+                <li class="mb-2"><strong>Email:</strong> radheyshantifoundation@gmail.com</li>
+                <li class="mb-2"><strong>Phone 1:</strong> +919643596029</li>
+                <li class="mb-2"><strong>Phone 2:</strong> +919711060355</li>
+                <li class="mb-2"><strong>Address:</strong> New Delhi, India</li>
+            </ul>
+            <div class="md:w-full flex items-center justify-center p-4">
+                <img
+                    src="https://placehold.co/600x400/e0e7ff/4338ca?text=Contact+Us"
+                    alt="Illustration of contact methods"
+                    class="rounded-lg shadow-md w-full h-auto object-cover"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e7ff/4338ca?text=Image+Not+Found';"
+                >
+            </div>
+        </div>
+
+        <!-- Support Us Page Content -->
+        <div id="support-page" class="page-content p-8 md:p-12 flex flex-col justify-center md:w-1/2">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 rounded-lg">
+                Support Our Cause
+            </h1>
+            <p class="text-lg text-gray-700 mb-4 rounded-lg">
+                Your support makes a significant difference in the lives of those we serve. There are several ways you can contribute to the Radhey Shanti Foundation:
+            </p>
+            <ul class="text-lg text-gray-700 mb-8 list-disc list-inside rounded-lg">
+                <li class="mb-2"><strong>Donate:</strong> Your financial contributions help us fund our programs directly.</li>
+                <li class="mb-2"><strong>Volunteer:</strong> Dedicate your time and skills to our initiatives.</li>
+                <li class="mb-2"><strong>Spread the Word:</strong> Share our mission with your friends and family.</li>
+            </ul>
+            <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75" onclick="showQrCodeModal()">
+                Donate Now
+            </button>
+            <div class="md:w-full flex items-center justify-center p-4">
+                <img
+                    src="https://placehold.co/600x400/e0e7ff/4338ca?text=Support+Us"
+                    alt="Illustration of donation or support"
+                    class="rounded-lg shadow-md w-full h-auto object-cover"
+                    onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e7ff/4338ca?text=Image+Not+Found';"
+                >
+            </div>
+        </div>
+
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <h2>Care. Dignity. Empowerment.</h2>
-      <p>Our mission is to uplift and support the elderly with compassion and purpose.</p>
-    </section>
+    <!-- QR Code Modal -->
+    <div id="qrCodeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeQrCodeModal()">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Scan to Donate</h2>
+            <img src="https://content-fetcher.web.app/uploaded:WhatsApp%20Image%202025-07-07%20at%2001.21.47_01155848.jpg-ce4345a4-47df-43bc-bf66-301f1682aca7" alt="QR Code for Donation" class="w-64 h-64 mx-auto rounded-lg">
+            <p class="mt-4 text-gray-700">Scan this QR code with any UPI app to make a donation.</p>
+        </div>
+    </div>
 
-    <section class="figma-embed">
-      <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="100%" height="450" 
-        src="https://embed.figma.com/design/FMVGlCyC7KK79N8OTVnxOr/Untitled?node-id=0-1&embed-host=share" allowfullscreen>
-      </iframe>
-    </section>
-  </main>
+    <script>
+        // JavaScript to handle page switching
+        function showPage(pageId) {
+            // Hide all page content sections
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
 
-  <footer>
-    <p>© 2025 Radhey Shanti Foundation</p>
-  </footer>
+            // Remove active class from all navigation buttons
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show the selected page content
+            document.getElementById(pageId + '-page').style.display = 'flex'; // Use 'flex' to maintain layout
+
+            // Add active class to the clicked navigation button
+            document.getElementById('nav-' + pageId).classList.add('active');
+        }
+
+        // Function to show the QR code modal
+        function showQrCodeModal() {
+            document.getElementById('qrCodeModal').style.display = 'flex';
+        }
+
+        // Function to close the QR code modal
+        function closeQrCodeModal() {
+            document.getElementById('qrCodeModal').style.display = 'none';
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('qrCodeModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Show the 'About Us' page by default when the page loads
+        window.onload = function() {
+            showPage('about');
+        };
+    </script>
 </body>
 </html>
