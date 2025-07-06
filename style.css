@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f9f6;
+  color: #2e3b2e;
+}
+
+header {
+  background-color: #a8c3a5;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem;
+  background-color: #b8d8b8;
+  color: white;
+}
+
+section {
+  padding: 2rem;
+}
+
+footer {
+  background-color: #cbe3c4;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.donate-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #4d7c4d;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.donate-button:hover {
+  background-color: #3b613b;
+}
